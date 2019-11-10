@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+    <suite name="Applitools-Rockstar-Hackathon" verbose="1" parallel="none" thread-count="0" configfailurepolicy="continue" >
+    <listeners>
+        <listener class-name="util.Listeners.TestListener" />
+        <listener class-name="util.Listeners.AnnotationTransformer" />
+    </listeners>
+    <test name="Regression Tests" preserve-order="true" skipfailedinvocationcounts="true">
+        <classes>
+            <class name="tests.LoginPage_With_Eyes_Tests"></class>
+        </classes>
+</test> <!-- Test -->
+</suite> <!-- Suite -->

@@ -2,7 +2,6 @@ package util.Listeners;
 
 import com.relevantcodes.extentreports.LogStatus;
 import entities.TestSet;
-import io.qameta.allure.Attachment;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -18,8 +17,6 @@ public class TestListener extends TestSet implements ITestListener {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
     }
 
-    //Text attachments for Allure
-    @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshotPNG (WebDriver driver) {
         byte[] b = null;
         try {
@@ -36,14 +33,10 @@ public class TestListener extends TestSet implements ITestListener {
         return b;
     }
 
-    //Text attachments for Allure
-    @Attachment(value = "{0}", type = "text/plain")
     public static String saveTextLog (String message) {
         return message;
     }
 
-    //HTML attachments for Allure
-    @Attachment(value = "{0}", type = "text/html")
     public static String attachHtml(String html) {
         return html;
     }

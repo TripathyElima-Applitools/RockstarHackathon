@@ -17,7 +17,7 @@ public class PropertyReader {
 
     public void loadProperties() {
         //Retrieve the environment to run test on, default to version1.
-        final String environment = System.getProperty("env", "version1");
+        final String environment = System.getProperty("env", "version2");
         try (InputStream inputStream = PropertyReader.class.getResourceAsStream("/test_resources/application-test-" + environment + ".properties")) {
             properties.load(inputStream);
         } catch (IOException e) {

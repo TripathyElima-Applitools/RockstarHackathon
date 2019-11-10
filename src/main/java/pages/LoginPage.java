@@ -1,11 +1,10 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasePage {
 
@@ -47,36 +46,20 @@ public class LoginPage extends BasePage {
         PageFactory.initElements(webDriver, this);
     }
 
-    public void waitTillElementLoaded(WebElement element)
-    {
-        WebDriverWait wait = new WebDriverWait(Driver, 20);
-        wait.until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    public void login_without_username(String password) {
-        LoginPage_Username.clear();
-        LoginPage_Password.sendKeys(password);
-        LoginPage_Submit.click();
-    }
-
-    public void login_without_password(String username) {
-        LoginPage_Password.clear();
-        LoginPage_Username.sendKeys(username);
-        LoginPage_Submit.click();
-    }
-
-    public void login_without_username_and_password() {
-        LoginPage_Username.clear();
-        LoginPage_Password.clear();
-        LoginPage_Submit.click();
-    }
-
     public void login_with_username_and_password(String username, String password){
         LoginPage_Username.sendKeys(username);
         LoginPage_Password.sendKeys(password);
         LoginPage_Submit.click();
     }
 
+    public void clear_with_username_and_password(){
+        LoginPage_Username.clear();
+        LoginPage_Password.clear();
+    }
+    public By getWarmingError()
+    {
+        return By.className("alert-warning");
+    }
     public String getLoginPageTitle()
     {
         return LoginPage_Title.getText();
