@@ -71,4 +71,23 @@ public class LoginPage_Tests extends TestSet {
         Assert.assertTrue(sortedList.equals(obtainedList), "Amount column didn't sort after click");
 
     }
+
+    @Test(priority = 3)
+    /* Canvas Chart will display a bar chart comparing the expenses for the year 2017 and 2018
+       Validate that the bar chart and representing that data (number of bars and their heights).
+       They should remain the same across versions. Then click on the "Show data for next year" button.
+       This should add the data for the year 2019. Verify that this data set is added for the year 2019.
+    */
+    public void verify_Canvas_Chart_Works() throws Exception
+    {
+      acmePage.clickOnExpensesChart();
+      Assert.assertEquals(acmePage.verifyCanvasChartExists(), true, "Canvas chart is not displayed");
+      /* Not sure what would be the best way to compare the data (number of bars and their heights) and it would
+         require some investigation as I never automated charts and graphs implemented using javascript or reactjs applications
+       */
+
+     acmePage.clickShowNextYearData();
+        Assert.assertEquals(acmePage.verifyCanvasChartExists(), true, "Show Next Year Data is not displayed");
+        // Also not sure how to verify that this data set is added for the year 2019. But I believe these are best cases to do using Applitools
+    }
 }

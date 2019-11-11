@@ -2,6 +2,7 @@ package tests;
 
 import com.applitools.eyes.RectangleSize;
 import entities.TestSet;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -68,6 +69,23 @@ public class LoginPage_With_Eyes_Tests extends TestSet {
         System.out.println("Sorted List is" + sortedList);
         eyesManager.validateWindow("Sorted");
         Assert.assertTrue(sortedList.equals(obtainedList), "Amount column didn't sort after click");
+    }
+
+    @Test(priority = 3)
+    /* Canvas Chart will display a bar chart comparing the expenses for the year 2017 and 2018
+       Validate that the bar chart and representing that data (number of bars and their heights).
+       They should remain the same across versions. Then click on the "Show data for next year" button.
+       This should add the data for the year 2019. Verify that this data set is added for the year 2019.
+    */
+    public void verify_Canvas_Chart_Works() throws Exception
+    {
+        acmePage.clickOnExpensesChart();
+        Assert.assertEquals(acmePage.verifyCanvasChartExists(), true, "Canvas chart is not displayed");
+        eyesManager.validateElement(acmePage.getCanvasCharts(), "Canvas Chart", null);
+        acmePage.clickShowNextYearData();
+        Assert.assertEquals(acmePage.verifyCanvasChartExists(), true, "Show Next Year Data is not displayed");
+        eyesManager.validateElement(acmePage.getCanvasCharts(), "Canvas Chart After Show Next Year", null);
+
     }
 
 }

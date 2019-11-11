@@ -14,6 +14,15 @@ public class ACMEPage extends BasePage {
     @FindBy(id = "transactionsTable")
     private WebElement TransactionTable = null;
 
+    @FindBy(id = "showExpensesChart")
+    private WebElement ShowExpensesChart = null;
+
+    @FindBy(id = "canvas")
+    private WebElement Canvas = null;
+
+    @FindBy(className = "btn-warning")
+    private WebElement ShowNextYearData = null;
+
     public ACMEPage(WebDriver webDriver) {
         this.Driver = webDriver;
         PageFactory.initElements(webDriver, this);
@@ -21,6 +30,25 @@ public class ACMEPage extends BasePage {
 
     public void clickOnAmountColumn() {
         TransactionTable.findElement(By.tagName("thead")).findElement(By.tagName("tr")).findElement(By.id("amount")).click();
+    }
+
+    public void clickOnExpensesChart() {
+        ShowExpensesChart.click();
+    }
+
+    public boolean verifyCanvasChartExists()
+    {
+        return Canvas.isDisplayed();
+    }
+
+    public By getCanvasCharts()
+    {
+        return By.id("canvas");
+    }
+
+    public void clickShowNextYearData()
+    {
+        ShowNextYearData.click();
     }
 
     public List<Integer> getAllAmountsAfterClick() {
