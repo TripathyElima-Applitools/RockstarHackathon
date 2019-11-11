@@ -4,30 +4,25 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.TimeUnit;
 
-import com.applitools.eyes.BatchInfo;
-import com.applitools.eyes.MatchLevel;
-import com.applitools.eyes.selenium.Eyes;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import pages.ACMEPage;
 import pages.LoginPage;
 import util.PropertyReader;
 
 public class TestSet {
 
     public RemoteWebDriver driver;
-    DesiredCapabilities capabilities = new DesiredCapabilities();
+    public DesiredCapabilities capabilities = new DesiredCapabilities();
     public static PropertyReader propertyReader;
-    protected static Eyes eyes;
-
     public LoginPage loginPage;
+    public ACMEPage acmePage;
+    protected static EyesManager eyesManager;
 
     public TestSet() {
         propertyReader = new PropertyReader();
@@ -38,39 +33,14 @@ public class TestSet {
         // LOGGER.info("SetUp");
         setDriver();
         loginPage = new LoginPage(driver);
+        acmePage = new ACMEPage(driver);
         loadUrl();
-        initiateEyes();
-    }
-
-    private static void initiateEyes()
-    {
-        eyes = new Eyes();
-        eyes.setApiKey(propertyReader.readProperty("applitools.api.key"));
-    }
-
-    public void validateWindow()
-    {
-        eyes.open(driver, "Applitools Hackathon Login Page Tests", Thread.currentThread().getStackTrace()[2].getMethodName());
-        eyes.checkWindow();
-        eyes.close();
-    }
-
-    public void validateElement(By element, String testname)
-    {
-        eyes.open(driver, "Applitools Hackathon Login Page Tests", testname);
-        eyes.checkElement(element);
-        eyes.close();
-    }
-
-    public static void setBatchName(String batchName)
-    {
-        eyes.setBatch(new BatchInfo(batchName));
+        eyesManager = new EyesManager(driver, "Applitools Hackathon Login Page Tests");
     }
 
     @AfterClass
     public void tearDown(){
         driver.close();
-        eyes.abortIfNotClosed();
     }
 
     public void setDriver() throws MalformedURLException {
@@ -79,12 +49,11 @@ public class TestSet {
         options.addArguments("window-size=1600,900");
         capabilities.setCapability(ChromeOptions.CAPABILITY, options);
         // Running test cases using Docker container Selenium GRID
-      //  driver = new RemoteWebDriver(new URL(propertyReader.readProperty("seleniumHub")), capabilities);
+        driver = new RemoteWebDriver(new URL(propertyReader.readProperty("seleniumHub")), capabilities);
         // Running test cases locally using ChromeDriver
-        System.setProperty("webdriver.chrome.driver", "/Users/tripate/Downloads/chromedriver 2");
-        driver = new ChromeDriver(options);
+//        System.setProperty("webdriver.chrome.driver", "/Users/tripate/Downloads/chromedriver 2");
+//        driver = new ChromeDriver(options);
         driver.manage().window().fullscreen();
-
     }
 
     public void loadUrl(){

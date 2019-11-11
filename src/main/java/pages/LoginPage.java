@@ -14,7 +14,6 @@ public class LoginPage extends BasePage {
     @FindBy(id = "username")
     private WebElement LoginPage_Username = null;
 
-
     @FindBy(id = "password")
     private WebElement LoginPage_Password = null;
 
@@ -39,8 +38,6 @@ public class LoginPage extends BasePage {
     @FindBy(id = "time")
     private WebElement ACME_Page = null;
 
-
-
     public LoginPage(WebDriver webDriver) {
         this.Driver = webDriver;
         PageFactory.initElements(webDriver, this);
@@ -60,12 +57,18 @@ public class LoginPage extends BasePage {
     {
         return By.className("alert-warning");
     }
+
+    public By getLoginSuccessMessage()
+    {
+        return By.id("time");
+    }
+
     public String getLoginPageTitle()
     {
         return LoginPage_Title.getText();
     }
 
-    public String getLoginPageAlert()
+    public String getWarningAlert()
     {
         return LoginPage_Alert.getText();
     }
